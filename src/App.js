@@ -1,5 +1,6 @@
 import './App.css';
 import { Routes, Route, Outlet, Navigate } from 'react-router-dom';
+import { Toaster } from 'react-hot-toast';
 
 import Layout from './components/Layout';
 import HomePage from './components/HomePage';
@@ -22,6 +23,7 @@ function App() {
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
       <Outlet />
+      <Toaster position="top-center" reverseOrder={false} />
     </div>
   );
 }
