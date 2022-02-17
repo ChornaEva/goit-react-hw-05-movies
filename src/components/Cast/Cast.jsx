@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { getFilmCast } from '../../services/api';
 
-const Cast = ({ movieId }) => {
+const Cast = () => {
   const [cast, setCast] = useState(null);
   const [error, setError] = useState(null);
+  const { movieId } = useParams();
 
   useEffect(() => {
     async function fetchFilmCast(movieId) {

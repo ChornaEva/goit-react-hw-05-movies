@@ -1,6 +1,14 @@
 import { useState, useEffect } from 'react';
-import { useParams, NavLink, Link } from 'react-router-dom';
-import { getFilmById, getFilmCast, getFilmReviews } from '../../services/api';
+import {
+  useParams,
+  NavLink,
+  Link,
+  useLocation,
+  Routes,
+  Route,
+  Outlet,
+} from 'react-router-dom';
+import { getFilmById } from '../../services/api';
 
 import toast from 'react-hot-toast';
 import Reviews from '../Reviews';
@@ -8,8 +16,12 @@ import Cast from '../Cast';
 
 const MovieDetailsPage = () => {
   const { movieId } = useParams();
-
   const [movie, setMovie] = useState(null);
+  const location = useLocation();
+  // const match = useRouteMatch();
+  // console.log(movieId);
+
+  // console.log(location);
 
   useEffect(() => {
     async function fetchItem() {
@@ -45,27 +57,28 @@ const MovieDetailsPage = () => {
               {movie.genres &&
                 movie.genres.map(genre => <p key={genre.id}> {genre.name} </p>)}
 
-              {/* <ul >
-                <li>
-                  <NavLink
-                    
-                    to={{ pathname: `${url}/cast`, state: { from: location.state?.from } }}
-                  >
-                    cast
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink
-                    
-                    to={{ pathname: `${url}/reviews`, state: { from: location.state?.from } }}
-                  >
-                    reviews
-                  </NavLink>
-                </li>
-              </ul> */}
+              <div>
+                <h2>Additional information</h2>
+                <ul>
+                  <li>
+                    <Link to="cast" state={{ from: location.state?.from }}>
+                      Cast
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="reviews" state={{ from: location.state?.from }}>
+                      Reviews
+                    </Link>
+                  </li>
+                </ul>
+                <Outlet />
+              </div>
 
-              <Reviews movieId={movieId} />
-              <Cast movieId={movieId} />
+              {/* <Routes>
+                <Route path="reviews" element={<Reviews movieId={movieId} />} />
+                <Route path="reviews" element={<Cast movieId={movieId} />} />
+              </Routes>
+              <Outlet /> */}
             </div>
           </div>
         </>
