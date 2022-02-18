@@ -2,6 +2,11 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getTrendingFilms } from '../../services/api';
 import Loader from '../Loader';
+import {
+  TrendingFilmsHeader,
+  TrendingFilmsItem,
+  TrendingFilmsList,
+} from './HomePage.styled';
 
 const useFetchTrendFilms = () => {
   const [trendFilms, setTrendFilms] = useState([]);
@@ -30,22 +35,25 @@ const HomePage = () => {
   const { trendFilms, loading, error } = useFetchTrendFilms();
   return (
     <>
-      <h1>Trending Films</h1>
+      <TrendingFilmsHeader>Trending Films</TrendingFilmsHeader>
       {loading && <Loader />}
       {!error && (
-        <ol>
+        <TrendingFilmsList>
           {trendFilms.length &&
             trendFilms.map(
               trendFilm =>
                 trendFilm.title && (
-                  <li key={trendFilm.id}>
-                    <Link to={`/movies/${trendFilm.id}`}>
+                  <TrendingFilmsItem key={trendFilm.id}>
+                    <Link
+                      className="trendingFilmsLink"
+                      to={`/movies/${trendFilm.id}`}
+                    >
                       {trendFilm.title}
                     </Link>
-                  </li>
+                  </TrendingFilmsItem>
                 )
             )}
-        </ol>
+        </TrendingFilmsList>
       )}
     </>
   );

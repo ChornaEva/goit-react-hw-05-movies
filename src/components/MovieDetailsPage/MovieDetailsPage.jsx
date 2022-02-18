@@ -11,6 +11,15 @@ import { getFilmById } from '../../services/api';
 
 import toast from 'react-hot-toast';
 import BackLink from '../BackLink/BackLink';
+import {
+  MovieDetailsHeader,
+  MovieDetailsHeading,
+  MovieDetailsImg,
+  MovieDetailsItem,
+  MovieDetailsList,
+  MovieDetailsText,
+  MovieDetailsWrapper,
+} from './MovieDetailsPage.styled';
 
 const MovieDetailsPage = () => {
   const { movieId } = useParams();
@@ -33,39 +42,56 @@ const MovieDetailsPage = () => {
     <>
       {movie && (
         <>
-          <div>
-            <BackLink />
-            <img
+          <BackLink />
+          <MovieDetailsWrapper>
+            <MovieDetailsImg
               src={'https://image.tmdb.org/t/p/w500/' + movie.poster_path}
               alt={movie.title}
             />
             <div>
-              <h2>{movie.title}</h2>
-              <p>User score: {movie.vote_average * 10}%</p>
-              <h3>Overview</h3>
-              <p>{movie.overview}</p>
-              <h3>Genres</h3>
+              <MovieDetailsHeader>{movie.title}</MovieDetailsHeader>
+              <MovieDetailsText>
+                User score: {movie.vote_average * 10}%
+              </MovieDetailsText>
+              <MovieDetailsHeading>Overview</MovieDetailsHeading>
+              <MovieDetailsText>{movie.overview}</MovieDetailsText>
+              <MovieDetailsHeading>Genres</MovieDetailsHeading>
               {movie.genres &&
-                movie.genres.map(genre => <p key={genre.id}> {genre.name} </p>)}
+                movie.genres.map(genre => (
+                  <MovieDetailsText key={genre.id}>
+                    {' '}
+                    {genre.name}{' '}
+                  </MovieDetailsText>
+                ))}
 
               <div>
-                <h2>Additional information</h2>
-                <ul>
-                  <li>
-                    <Link to="cast" state={{ from: location.state?.from }}>
+                <MovieDetailsHeading>
+                  Additional information
+                </MovieDetailsHeading>
+                <MovieDetailsList>
+                  <MovieDetailsItem>
+                    <Link
+                      className="pageLink"
+                      to="cast"
+                      state={{ from: location.state?.from }}
+                    >
                       Cast
                     </Link>
-                  </li>
-                  <li>
-                    <Link to="reviews" state={{ from: location.state?.from }}>
+                  </MovieDetailsItem>
+                  <MovieDetailsItem>
+                    <Link
+                      className="pageLink"
+                      to="reviews"
+                      state={{ from: location.state?.from }}
+                    >
                       Reviews
                     </Link>
-                  </li>
-                </ul>
-                <Outlet />
+                  </MovieDetailsItem>
+                </MovieDetailsList>
               </div>
             </div>
-          </div>
+          </MovieDetailsWrapper>
+          <Outlet />
         </>
       )}
     </>

@@ -8,6 +8,14 @@ import {
 } from 'react-router-dom';
 import { getSearchFilms } from '../../services/api';
 import Loader from '../Loader';
+import {
+  FilterInput,
+  InputButton,
+  InputForm,
+  InputWrapper,
+  SearchFilmsItem,
+  SearchFilmsList,
+} from './MoviesPage.styled';
 
 const MoviesPage = () => {
   const location = useLocation();
@@ -40,29 +48,30 @@ const MoviesPage = () => {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit} autoComplete="off">
-        <input type="text" name="query" autoFocus />
-        <button type="submit">Search</button>
-      </form>
+    <InputWrapper>
+      <InputForm onSubmit={handleSubmit} autoComplete="off">
+        <FilterInput type="text" name="query" autoFocus />
+        <InputButton type="submit">Search</InputButton>
+      </InputForm>
 
-      <ol>
+      <SearchFilmsList>
         {loading && <Loader />}
         {searchFilms.map(
           searchFilm =>
             searchFilm.title && (
-              <li key={searchFilm.id}>
+              <SearchFilmsItem key={searchFilm.id}>
                 <Link
+                  className="searchFilmsLink"
                   to={`/movies/${searchFilm.id}`}
                   state={{ from: location }}
                 >
                   {searchFilm.title}
                 </Link>
-              </li>
+              </SearchFilmsItem>
             )
         )}
-      </ol>
-    </div>
+      </SearchFilmsList>
+    </InputWrapper>
   );
 };
 
