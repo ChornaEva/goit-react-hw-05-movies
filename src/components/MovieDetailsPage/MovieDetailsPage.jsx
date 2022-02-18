@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import {
   useParams,
-  NavLink,
   Link,
   useLocation,
   Routes,
@@ -11,17 +10,11 @@ import {
 import { getFilmById } from '../../services/api';
 
 import toast from 'react-hot-toast';
-import Reviews from '../Reviews';
-import Cast from '../Cast';
 
 const MovieDetailsPage = () => {
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
   const location = useLocation();
-  // const match = useRouteMatch();
-  // console.log(movieId);
-
-  // console.log(location);
 
   useEffect(() => {
     async function fetchItem() {
