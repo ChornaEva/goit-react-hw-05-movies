@@ -10,6 +10,7 @@ import {
 import { getFilmById } from '../../services/api';
 
 import toast from 'react-hot-toast';
+import BackLink from '../BackLink/BackLink';
 
 const MovieDetailsPage = () => {
   const { movieId } = useParams();
@@ -33,10 +34,7 @@ const MovieDetailsPage = () => {
       {movie && (
         <>
           <div>
-            <Link to="/">
-              <button type="button">Go back</button>
-            </Link>
-
+            <BackLink />
             <img
               src={'https://image.tmdb.org/t/p/w500/' + movie.poster_path}
               alt={movie.title}
@@ -66,12 +64,6 @@ const MovieDetailsPage = () => {
                 </ul>
                 <Outlet />
               </div>
-
-              {/* <Routes>
-                <Route path="reviews" element={<Reviews movieId={movieId} />} />
-                <Route path="reviews" element={<Cast movieId={movieId} />} />
-              </Routes>
-              <Outlet /> */}
             </div>
           </div>
         </>
