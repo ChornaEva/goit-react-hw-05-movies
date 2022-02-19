@@ -76,11 +76,24 @@ export const SearchFilmsItem = styled.li`
   max-width: 400px;
 
   &:hover {
-    border-left: 15px solid rgb(99, 188, 240);
+    border-left: 15px solid #da7e15;
     box-shadow: 0 6px 4px -4px rgba(8, 116, 167, 0.1),
       0 6px 4px -4px rgba(8, 116, 167, 0.1),
       0 6px 4px -4px rgba(8, 116, 167, 0.1),
       0 6px 4px -4px rgba(8, 116, 167, 0.1);
+  }
+  .searchFilmsLink {
+    display: flex;
+    flex-direction: column;
+    font-size: 14px;
+    text-decoration: none;
+    color: #135c86;
+    margin: 5px;
+    padding: 0;
+    &:hover {
+      color: #da7e15;
+      text-decoration: underline;
+    }
   }
 `;
 
