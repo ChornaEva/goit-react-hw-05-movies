@@ -1,24 +1,17 @@
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-import {
-  Link,
-  useParams,
-  useSearchParams,
-  useLocation,
-} from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { getSearchFilms } from '../../services/api';
+import FilmList from '../FilmList/FilmList';
 import Loader from '../Loader';
 import {
   FilterInput,
   InputButton,
   InputForm,
   InputWrapper,
-  SearchFilmsItem,
-  SearchFilmsList,
 } from './MoviesPage.styled';
 
 const MoviesPage = () => {
-  const location = useLocation();
   const [loading, setLoading] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
   const [searchFilms, setSearchFilms] = useState([]);
@@ -53,24 +46,9 @@ const MoviesPage = () => {
         <FilterInput type="text" name="query" autoFocus />
         <InputButton type="submit">Search</InputButton>
       </InputForm>
+      <FilmList filmsArray={searchFilms} />
 
-      <SearchFilmsList>
-        {loading && <Loader />}
-        {searchFilms.map(
-          searchFilm =>
-            searchFilm.title && (
-              <SearchFilmsItem key={searchFilm.id}>
-                <Link
-                  className="searchFilmsLink"
-                  to={`/movies/${searchFilm.id}`}
-                  state={{ from: location }}
-                >
-                  {searchFilm.title}
-                </Link>
-              </SearchFilmsItem>
-            )
-        )}
-      </SearchFilmsList>
+      {loading && <Loader />}
     </InputWrapper>
   );
 };
